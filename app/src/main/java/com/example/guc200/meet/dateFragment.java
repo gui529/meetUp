@@ -24,4 +24,8 @@ public class dateFragment extends Fragment {
     }
 
 
+    public void closeFrag (){
+        getActivity().getSupportFragmentManager().popBackStack();
+
+    }
 }

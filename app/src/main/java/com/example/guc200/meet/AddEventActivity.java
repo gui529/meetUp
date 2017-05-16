@@ -2,6 +2,7 @@ package com.example.guc200.meet;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
@@ -19,6 +20,7 @@ import android.widget.Button;
 
 
 public class AddEventActivity extends AppCompatActivity {
+    dateFragment frag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +39,17 @@ public class AddEventActivity extends AppCompatActivity {
 
 
     public void pickDate(View view){
-        // Begin the transaction
+        frag = new dateFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-        ft.replace(R.id.your_placeholder, new dateFragment());
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
+        ft.add(R.id.your_placeholder, frag);
         ft.commit();
     }
 
     public void closeDatePicker(View view){
-        getFragmentManager().popBackStack();    }
+        Log.d("app","im here");
+        frag.closeFrag();
+
+    }
 
 }
 
