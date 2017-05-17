@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     public void addEvent(View view){
         Intent myIntent = new Intent(MainActivity.this, AddEventActivity.class);
         MainActivity.this.startActivity(myIntent);
-        //Log.d("hey","hey");
     }
+
 
 }
 
