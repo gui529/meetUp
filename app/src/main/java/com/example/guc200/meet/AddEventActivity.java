@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -73,21 +75,65 @@ public class AddEventActivity extends AppCompatActivity {
         String dayOfMonth = String.valueOf(cal.get(Calendar.DATE));
         String year = String.valueOf(cal.get(Calendar.YEAR));
 
-
-
-
-        Log.d("app",month);
-        Log.d("app",weekDay);
-        Log.d("app",dayOfMonth);
-
-        dateTextField.setText("Date: "+weekDay+", "+month+ " " +dayOfMonth+" of "+year);
-//Date: Thursday, September 21 of 2016
+        dateTextField.setText(weekDay+", "+month+ " " +dayOfMonth+" of "+year);
         getSupportFragmentManager().popBackStack();
-
-
 
     }
 
+    public void confirmTime( View view){
+        TimePicker timePicker;
+        TextView timeTextField;
+        int hour;
+        int minute;
+        String AMorPM;
+
+        timeTextField= (TextView) findViewById(R.id.timeTextField);
+        timePicker = (TimePicker) findViewById(R.id.timePicker);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            int tempHour = timePicker.getHour();
+            if (timePicker.getHour() >= 12){
+                tempHour = tempHour - 12;
+            }
+            else if (timePicker.getHour() == 12 || timePicker.getHour() == 0){
+                tempHour = 12;
+            }
+            if (timePicker.getHour() >= 12){
+                AMorPM = "PM";
+            }
+            else{
+                AMorPM = "AM";
+            }
+            hour = tempHour;
+            minute = timePicker.getMinute();
+        }
+        else {
+            int tempHour = timePicker.getCurrentHour();
+            if (timePicker.getCurrentHour() > 12){
+                tempHour = tempHour - 12;
+            }
+            else if (timePicker.getCurrentHour() == 12 || timePicker.getCurrentHour() == 0){
+                tempHour = 12;
+            }
+
+            if (timePicker.getCurrentHour() >= 12){
+                AMorPM = "PM";
+            }
+            else{
+                AMorPM = "AM";
+            }
+            hour = tempHour;
+            minute = timePicker.getCurrentMinute();
+        }
+
+
+
+        timeTextField.setText(String.format("%02d:%02d %s", hour, minute,AMorPM ));
+
+        //timeTextField.setText(hour + ":"+ minute+" "+AMorPM);
+        getSupportFragmentManager().popBackStack();
+
+    }
 
     public void closeDatePicker(View view){
         getSupportFragmentManager().popBackStack();
